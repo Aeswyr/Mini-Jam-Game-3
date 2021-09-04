@@ -11,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Hazards
+  - Summons
+  - Enemies
+  - Platforms
+  - Player
+  - Camera
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Platforms
+    uniqueID: 1994474773
+    locked: 0
+  - name: Hazards
+    uniqueID: 3689951675
     locked: 0
