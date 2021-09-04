@@ -11,9 +11,9 @@ public class PlayerInput : MonoBehaviour
 	[HideInInspector] public bool crouchHeld;		//Bool that stores crouch pressed
 	[HideInInspector] public bool crouchPressed;	//Bool that stores crouch held
 
-    
-	bool readyToClear;								//Bool used to keep input in sync
+    [HideInInspector] public bool summonPressed;
 
+	bool readyToClear;								//Bool used to keep input in sync
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +56,7 @@ public class PlayerInput : MonoBehaviour
 		jumpHeld		= false;
 		crouchPressed	= false;
 		crouchHeld		= false;
+        summonPressed   = false;
 
 		readyToClear	= false;
 	}
@@ -68,5 +69,6 @@ public class PlayerInput : MonoBehaviour
 		//Accumulate button inputs
 		jumpPressed		= jumpPressed || Input.GetButtonDown("Jump");
 		jumpHeld		= jumpHeld || Input.GetButton("Jump");
+        summonPressed   = summonPressed || Input.GetButtonDown("Summon");
 	}
 }

@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private float footOffset = .5f;
     private float groundCheck = 0.1f;
 
+    public float summonDist;
+
     public float jumpHoldDuration;	//How long the jump key can be held
     public float jumpForce;           //Initial jump force
 	public float jumpHoldForce;		//Incremental force when jump is held
@@ -31,15 +33,16 @@ public class PlayerController : MonoBehaviour
     float coyoteDuration;
 
     PlayerInput input;
+    GameManager gm;
     public LayerMask groundLayer;
 
     [SerializeField] private Rigidbody2D rbody;
-    //[SerializeField] private FloorDetector floorDetector;
 
     // Start is called before the first frame update
     void Start()
     {
         input = GetComponent<PlayerInput>();
+        gm = GetComponent<GameManager>();
         rbody = gameObject.GetComponent<Rigidbody2D>();
         originalXScale = transform.localScale.x;
     }
@@ -52,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
         GroundMovement();
         midAirMovement();
+
+        handleAttacks();
         //if (Input.GetAxis("Vertical") != 0) {
         //        momentum.y = speed * Input.GetAxis("Vertical");
         //        rbody.velocity = momentum;
@@ -104,8 +109,7 @@ public class PlayerController : MonoBehaviour
 		}
     }
     	
-    void FlipCharacterDirection()
-	{
+    void FlipCharacterDirection() {
 		//Turn the character by flipping the direction
 		direction *= -1;
 
@@ -118,6 +122,12 @@ public class PlayerController : MonoBehaviour
 		//Apply the new scale
 		transform.localScale = scale;
 	}
+
+    void handleAttacks() {
+        if (input.summonPressed) {
+            gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
+        }
+    }
 
     RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length) {
 		//Call the overloaded Raycast() method using the ground layermask and return 
