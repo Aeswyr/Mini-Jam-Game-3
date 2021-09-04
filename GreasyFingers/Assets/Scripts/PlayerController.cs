@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private float speed = 6f;
     private float maxAccel = .8f;
 
-    private float footOffset = .5f;
+    private float footOffset = .25f;
     private float groundCheck = 0.1f;
 
     public float summonDist;
