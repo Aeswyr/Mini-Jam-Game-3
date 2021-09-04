@@ -4,40 +4,144 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool drawDebugRaycasts = false;
+
+    //Constants
     private float speed = 6f;
+    private float maxAccel = .8f;
+
+    private float footOffset = .5f;
+    private float groundCheck = 0.1f;
+
+    public float jumpHoldDuration;	//How long the jump key can be held
+    public float jumpForce;           //Initial jump force
+	public float jumpHoldForce;		//Incremental force when jump is held
+    
+    private float originalXScale;
+
+    //Variables
+
+    public bool onGround = true;
+    private int direction = 1;
+    
+    bool isJumping;
+    float jumpTime;							//Variable to hold jump duration
+
+    float coyoteTime;
+    float coyoteDuration;
+
+    PlayerInput input;
+    public LayerMask groundLayer;
+
     [SerializeField] private Rigidbody2D rbody;
-    [SerializeField] private FloorDetector floorDetector;
+    //[SerializeField] private FloorDetector floorDetector;
 
     // Start is called before the first frame update
     void Start()
     {
+        input = GetComponent<PlayerInput>();
         rbody = gameObject.GetComponent<Rigidbody2D>();
+        originalXScale = transform.localScale.x;
     }
-
-    
-    bool jumping;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector2 momentum = rbody.velocity;
-        if (Input.GetAxis("Horizontal") != 0) {
-                momentum.x = speed * Input.GetAxis("Horizontal");
-                
-        }
-        if (jumping && floorDetector.GetGrounded()) {
-            momentum.y = speed;
-            jumping = false;
-        }
-        rbody.velocity = momentum;
+
+        PhysicsCheck();
+
+        GroundMovement();
+        midAirMovement();
         //if (Input.GetAxis("Vertical") != 0) {
         //        momentum.y = speed * Input.GetAxis("Vertical");
         //        rbody.velocity = momentum;
         //}
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.Space))
-            jumping = true;
+    void PhysicsCheck() {
+        RaycastHit2D leftCheck  = Raycast(new Vector2(- footOffset, 0f), Vector2.down, groundCheck);
+        RaycastHit2D rightCheck = Raycast(new Vector2(  footOffset, 0f), Vector2.down, groundCheck);
+
+        if (leftCheck || rightCheck) {
+            onGround = true;
+        } else {
+            onGround = false;
+        }
     }
+
+    void GroundMovement() {
+        float xVelGoal = speed * input.horizontal;
+
+        float accel = Mathf.Clamp(xVelGoal - rbody.velocity.x, -maxAccel, maxAccel); 
+
+        rbody.velocity = new Vector2(rbody.velocity.x + accel, rbody.velocity.y);
+
+        if ( (xVelGoal * direction) < 0f)
+			FlipCharacterDirection();
+
+		//If the player is on the ground, extend the coyote time window
+		if (onGround) {
+			coyoteTime = Time.time + coyoteDuration;
+        }
+    }
+    
+    void midAirMovement() {
+        if (input.jumpPressed && !isJumping && (onGround || coyoteTime > Time.time)) {
+            //momentum.y = speed * Input.GetAxis("Vertical");
+            rbody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+
+            jumpTime = Time.time + jumpHoldDuration;
+
+            isJumping = true;
+        } else if (isJumping) {
+			//...and the jump button is held, apply an incremental force to the rigidbody...
+			if (input.jumpHeld)
+				rbody.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
+
+			//...and if jump time is past, set isJumping to false
+			if (jumpTime <= Time.time)
+				isJumping = false;
+		}
+    }
+    	
+    void FlipCharacterDirection()
+	{
+		//Turn the character by flipping the direction
+		direction *= -1;
+
+		//Record the current scale
+		Vector3 scale = transform.localScale;
+
+		//Set the X scale to be the original times the direction
+		scale.x = originalXScale * direction;
+
+		//Apply the new scale
+		transform.localScale = scale;
+	}
+
+    RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length) {
+		//Call the overloaded Raycast() method using the ground layermask and return 
+		//the results
+		return Raycast(offset, rayDirection, length, groundLayer);
+	}
+
+	RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length, LayerMask mask) {
+		//Record the player's position
+		Vector2 pos = transform.position;
+
+		//Send out the desired raycasr and record the result
+		RaycastHit2D hit = Physics2D.Raycast(pos + offset, rayDirection, length, mask);
+
+		//If we want to show debug raycasts in the scene...
+		if (drawDebugRaycasts)
+		{
+			//...determine the color based on if the raycast hit...
+			Color color = hit ? Color.red : Color.green;
+			//...and draw the ray in the scene view
+			Debug.DrawRay(pos + offset, rayDirection * length, color);
+		}
+
+		//Return the results of the raycast
+		return hit;
+	}
 }
