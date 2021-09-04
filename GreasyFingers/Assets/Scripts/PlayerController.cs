@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private float maxAccel = .8f;
 
     private float footOffset = .25f;
+    [SerializeField] private float vFootOffset = -0.9f;
     private float groundCheck = 0.1f;
 
     public float summonDist;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
 
     [SerializeField] private Rigidbody2D rbody;
+    [SerializeField] private Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -64,17 +66,26 @@ public class PlayerController : MonoBehaviour
     }
 
     void PhysicsCheck() {
-        RaycastHit2D leftCheck  = Raycast(new Vector2(- footOffset, 0f), Vector2.down, groundCheck);
-        RaycastHit2D rightCheck = Raycast(new Vector2(  footOffset, 0f), Vector2.down, groundCheck);
+        RaycastHit2D leftCheck  = Raycast(new Vector2(- footOffset, vFootOffset), Vector2.down, groundCheck);
+        RaycastHit2D rightCheck = Raycast(new Vector2(  footOffset, vFootOffset), Vector2.down, groundCheck);
 
         if (leftCheck || rightCheck) {
-            onGround = true;
+            if (!onGround)
+                OnLand();
+            SetGrounded(true);
         } else {
-            onGround = false;
+            SetGrounded(false);
         }
     }
 
+    private void SetGrounded(bool val) {
+        onGround = val;
+        animator.SetBool("Grounded", val);
+    }
+
     void GroundMovement() {
+        animator.SetBool("Moved", input.horizontal != 0);
+
         float xVelGoal = speed * input.horizontal;
 
         float accel = Mathf.Clamp(xVelGoal - rbody.velocity.x, -maxAccel, maxAccel); 
@@ -97,7 +108,8 @@ public class PlayerController : MonoBehaviour
 
             jumpTime = Time.time + jumpHoldDuration;
 
-            isJumping = true;
+            OnJump();
+            
         } else if (isJumping) {
 			//...and the jump button is held, apply an incremental force to the rigidbody...
 			if (input.jumpHeld)
@@ -107,6 +119,15 @@ public class PlayerController : MonoBehaviour
 			if (jumpTime <= Time.time)
 				isJumping = false;
 		}
+    }
+
+    private void OnJump() {
+        isJumping = true;
+        animator.SetTrigger("Jumped");
+    }
+
+    private void OnLand() {
+        animator.SetTrigger("Landed");
     }
     	
     void FlipCharacterDirection() {
