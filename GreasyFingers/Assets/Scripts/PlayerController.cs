@@ -302,7 +302,7 @@ public class PlayerController : MonoBehaviour
         rbody.gravityScale = 0;
         rbody.drag = 0;
         
-
+        animator.SetTrigger("StartDash");
         dashing = true;
         ApplyDash();
     }
@@ -313,6 +313,7 @@ public class PlayerController : MonoBehaviour
         rbody.gravityScale = gravity;
         rbody.drag = drag;
         rbody.velocity = Vector2.zero;
+        animator.SetTrigger("EndDash");
     }
 
     private bool isDashing() {

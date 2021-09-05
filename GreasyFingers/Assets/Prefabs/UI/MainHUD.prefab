@@ -350,6 +350,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2184165972401610495}
     m_Modifications:
+    - target: {fileID: 47667522397041548, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2957904895949236583, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -763,7 +767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3209272617601066248, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_text
-      value: n
+      value: l
       objectReference: {fileID: 0}
     - target: {fileID: 5067744362857263474, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_Name
@@ -884,7 +888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3209272617601066248, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_text
-      value: u
+      value: j
       objectReference: {fileID: 0}
     - target: {fileID: 5067744362857263474, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_Name
@@ -1005,7 +1009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3209272617601066248, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_text
-      value: i
+      value: m
       objectReference: {fileID: 0}
     - target: {fileID: 5067744362857263474, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_Name
@@ -1595,7 +1599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3209272617601066248, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_text
-      value: m
+      value: n
       objectReference: {fileID: 0}
     - target: {fileID: 5067744362857263474, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_Name
@@ -1801,7 +1805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3209272617601066248, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_text
-      value: j
+      value: k
       objectReference: {fileID: 0}
     - target: {fileID: 5067744362857263474, guid: 2e644cbfeaba74c47a2371246f2ea8e7, type: 3}
       propertyPath: m_Name
