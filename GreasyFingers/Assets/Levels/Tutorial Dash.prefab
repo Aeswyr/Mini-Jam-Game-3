@@ -490,7 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   inventory: {fileID: 0}
-  LevelItems: 050000000500000003000000030000000200000003000000030000000300000003000000030000000300000005000000050000000500000005000000
+  LevelItems: 050000000500000003000000030000000300000003000000030000000300000003000000030000000300000005000000050000000500000005000000
   spawnpoint: {x: 3, y: 2}
 --- !u!1 &5305410309027910978
 GameObject:
@@ -1513,6 +1513,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8496981787541424281, guid: 5f2e7f250ec5d5b40887b9a22f2269f0, type: 3}
+      propertyPath: nextLevel
+      value: 
+      objectReference: {fileID: 1945774992371993194, guid: d71cd31f604e5604599c615a9f847754, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f2e7f250ec5d5b40887b9a22f2269f0, type: 3}
 --- !u!4 &112765398428358095 stripped
