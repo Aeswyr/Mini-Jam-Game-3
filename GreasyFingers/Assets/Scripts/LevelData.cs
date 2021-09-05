@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class LevelData : MonoBehaviour
 {
-    private PlayerController player;
-    private PlayerInventory inventory;
+    [SerializeField] private PlayerController player;
+    [SerializeField] private PlayerInventory inventory;
     [SerializeField] private Item[] LevelItems;
     [SerializeField] private Vector2 spawnpoint;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void FirstTimeSetup() {
+        inventory.GetLevelRewards();
+        Setup();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Setup() {
+        player.gameObject.transform.position = spawnpoint;
+        int[] inv = new int[(int)Item.ITEM_MAX];
+        foreach (var item in LevelItems)
+            inv[(int)item]++;
+        inventory.AddLevelInventory(inv);
+        inventory.FillLevelInventory();
     }
+
+    public void SetPlayer(GameObject p) {
+        player = p.GetComponent<PlayerController>();
+        inventory = p.GetComponent<PlayerInventory>();
+    } 
 }
