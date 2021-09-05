@@ -49,6 +49,14 @@ public class PlayerInventory : MonoBehaviour
         return staticLevelInventory[(int)item];
     }
 
+    public void GetLevelRewards() {
+        for (int i = 0; i < (int)Item.ITEM_MAX; i++)
+        {
+            inventory[i] += levelInventory[i];
+            levelInventory[i] = 0;
+        }
+    }
+
 }
 
 public enum Item {
