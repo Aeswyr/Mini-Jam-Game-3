@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     public GameObject activeCrate;
     public GameObject fallingBookPrefab;
     public GameObject attackPrefab;
+    public GameObject bookBombPrefab;
 
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private Animator animator;
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         inventory.Add(Item.Platform, 5);
 
-        int[] inv = {0, 0, 0, 5, 4, 0, 0, 1, 1, 1};
+        int[] inv = {0, 0, 0, 5, 4, 5, 5, 1, 1, 1};
         inventory.AddLevelInventory(inv);
         inventory.FillLevelInventory();
     }
@@ -173,7 +174,7 @@ public class PlayerController : MonoBehaviour
 			//...and if jump time is past, set isJumping to false
 			if (jumpTime <= Time.time)
 				isJumping = false;
-		} else if (input.jumpPressed && !isJumping && !usedDoubleJump) {
+		} else if (input.jumpPressed && !isJumping && !usedDoubleJump && inventory.Remove(Item.Doublejump)) {
             rbody.velocity = new Vector2(rbody.velocity.x, 0);
             rbody.AddForce(new Vector2(0f, doubleJumpForce), ForceMode2D.Impulse);
             usedDoubleJump = true;
@@ -231,6 +232,12 @@ public class PlayerController : MonoBehaviour
         if (input.attackPressed && inventory.Remove(Item.Reaper)) {
             Vector3 pos = new Vector3(transform.position.x + (direction * 1f), transform.position.y, transform.position.z);
             GameObject atk = Instantiate(attackPrefab, pos, Quaternion.identity);
+            //atk.transform.parent = rbody.transform;
+        }
+        if (input.bookBombPressed && inventory.Remove(Item.Bookbomb)) {
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            GameObject bomb = Instantiate(bookBombPrefab, pos, Quaternion.identity);
+            bomb.GetComponent<bookGrenade>().setDir(direction);
             //atk.transform.parent = rbody.transform;
         }
     }
