@@ -154,10 +154,17 @@ MonoBehaviour:
   jumpHoldDuration: 0.3
   jumpForce: 8
   jumpHoldForce: 0.4
-  onGround: 0
+  alive: 1
+  dying: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 640
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 320
+  hazardLayer:
+    serializedVersion: 2
+    m_Bits: 0
   rbody: {fileID: 2662364265666504691}
   animator: {fileID: 4161439269584631296}
 --- !u!114 &2662364265666504703

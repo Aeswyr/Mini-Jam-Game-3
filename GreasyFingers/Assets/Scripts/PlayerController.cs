@@ -72,14 +72,14 @@ public class PlayerController : MonoBehaviour
     void playerDeath() {
         //Run death animation
         OnDeath();
-        
+
         rbody.bodyType = RigidbodyType2D.Static;
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
         int cLayer = collision.gameObject.layer;
 
-        if (enemyLayer == (enemyLayer | (1 << cLayer))) {
+        if (alive && enemyLayer == (enemyLayer | (1 << cLayer))) {
             alive = false;
             dying = true;
         }
