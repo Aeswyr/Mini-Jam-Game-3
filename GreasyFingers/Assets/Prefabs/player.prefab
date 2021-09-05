@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2662364265666504703}
   - component: {fileID: 5567413434196029276}
   - component: {fileID: 4161439269584631296}
+  - component: {fileID: 3630792277495778753}
   m_Layer: 10
   m_Name: player
   m_TagString: Untagged
@@ -169,6 +170,7 @@ MonoBehaviour:
   activeCrate: {fileID: 0}
   rbody: {fileID: 2662364265666504691}
   animator: {fileID: 4161439269584631296}
+  inventory: {fileID: 3630792277495778753}
 --- !u!114 &2662364265666504703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,3 +222,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3630792277495778753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662364265666504689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164c05f401643064cbc07234e540fd17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
