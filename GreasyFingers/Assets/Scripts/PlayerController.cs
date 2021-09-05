@@ -23,18 +23,22 @@ public class PlayerController : MonoBehaviour
 
     //Variables
 
-    public bool onGround = true;
+    private bool onGround = true;
     private int direction = 1;
+    public bool alive = true;
+    public bool dying = false;
     
-    bool isJumping;
-    float jumpTime;							//Variable to hold jump duration
+    private bool isJumping;
+    private float jumpTime;							//Variable to hold jump duration
 
-    float coyoteTime;
-    float coyoteDuration;
+    private float coyoteTime;
+    private float coyoteDuration;
 
-    PlayerInput input;
-    GameManager gm;
+    private PlayerInput input;
+    private GameManager gm;
     public LayerMask groundLayer;
+    public LayerMask enemyLayer;
+    public LayerMask hazardLayer;
 
     [SerializeField] private Rigidbody2D rbody;
 
@@ -50,17 +54,33 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        
+        if (alive) {
+            PhysicsCheck();
 
-        PhysicsCheck();
+            GroundMovement();
+            midAirMovement();
 
-        GroundMovement();
-        midAirMovement();
+            handleAbilities();
+        } else if (dying) {
+            playerDeath();
+        }
+    }
 
-        handleAttacks();
-        //if (Input.GetAxis("Vertical") != 0) {
-        //        momentum.y = speed * Input.GetAxis("Vertical");
-        //        rbody.velocity = momentum;
-        //}
+    void playerDeath() {
+        //Run death animation
+
+        rbody.bodyType = RigidbodyType2D.Static;
+        dying = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision) {
+        int cLayer = collision.gameObject.layer;
+
+        if (enemyLayer == (enemyLayer | (1 << cLayer))) {
+            alive = false;
+            dying = true;
+        }
     }
 
     void PhysicsCheck() {
@@ -123,7 +143,7 @@ public class PlayerController : MonoBehaviour
 		transform.localScale = scale;
 	}
 
-    void handleAttacks() {
+    void handleAbilities() {
         if (input.summonPressed) {
             gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
         }
