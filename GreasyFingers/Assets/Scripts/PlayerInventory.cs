@@ -17,7 +17,8 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public void FillLevelInventory() {
-        levelInventory = staticLevelInventory;
+        for (int i = 0; i < staticLevelInventory.Length; i++)
+            levelInventory[i] = staticLevelInventory[i];
     }
 
     /**
