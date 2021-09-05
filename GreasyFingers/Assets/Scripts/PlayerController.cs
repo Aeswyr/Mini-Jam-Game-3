@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
         if (proximityLayer == (proximityLayer | (1 << cLayer))) {
             activeCrate = collision.gameObject;
+            activeCrate.transform.parent.gameObject.GetComponent<Animator>().SetTrigger("Activated");
         }
     }
 
@@ -104,6 +105,7 @@ public class PlayerController : MonoBehaviour
         int cLayer = collision.gameObject.layer;
 
         if (proximityLayer == (proximityLayer | (1 << cLayer)) && collision.gameObject == activeCrate) {
+            activeCrate.transform.parent.gameObject.GetComponent<Animator>().SetTrigger("Deactivated");
             activeCrate = null;
         }
     }
