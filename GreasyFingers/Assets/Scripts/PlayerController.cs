@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private Animator animator;
+    [SerializeField] private PlayerInventory inventory;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +52,12 @@ public class PlayerController : MonoBehaviour
         gm = GetComponent<GameManager>();
         rbody = gameObject.GetComponent<Rigidbody2D>();
         originalXScale = transform.localScale.x;
+
+        inventory.Add(Item.Platform, 5);
+
+        int[] inv = {0, 0, 0, 5, 4, 0, 0, 1, 1, 1};
+        inventory.AddLevelInventory(inv);
+        inventory.FillLevelInventory();
     }
 
     // Update is called once per frame
@@ -176,7 +183,7 @@ public class PlayerController : MonoBehaviour
 	}
 
     void handleAbilities() {
-        if (input.summonPressed) {
+        if (input.summonPressed && inventory.Remove(Item.Platform)) {
             gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
         }
     }

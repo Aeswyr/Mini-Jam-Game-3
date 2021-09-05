@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 311d4bce1626e9447b26b4fe499f1f26
+guid: 79aa7446745d09741b2eb02a93cfe7ef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5168740416218968801
-    second: pickup_page_0
+      213: -954845158457708212
+    second: tile_bookcrate_active_0
   - first:
-      213: -8521455278666791379
-    second: pickup_page_1
+      213: 4542871126521239004
+    second: tile_bookcrate_active_1
   - first:
-      213: -8094165957877876074
-    second: pickup_page_2
+      213: -7471743888213128327
+    second: tile_bookcrate_active_2
   - first:
-      213: -739293201412408128
-    second: pickup_page_3
+      213: -599027048494805432
+    second: tile_bookcrate_active_3
   - first:
-      213: -2088362096530680801
-    second: pickup_page_4
+      213: 5296240485491847291
+    second: tile_bookcrate_active_4
   - first:
-      213: 3866923946112057973
-    second: pickup_page_5
+      213: 3671472292024264565
+    second: tile_bookcrate_active_5
   - first:
-      213: 6387890134956345463
-    second: pickup_page_6
+      213: 4564723484219494137
+    second: tile_bookcrate_active_6
   - first:
-      213: -4788675305411809835
-    second: pickup_page_7
+      213: 2168457042388686497
+    second: tile_bookcrate_active_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pickup_page_0
+      name: tile_bookcrate_active_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1d40130af1f448b0800000000000000
-      internalID: -5168740416218968801
+      spriteID: c4170aa2365bfb2f0800000000000000
+      internalID: -954845158457708212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pickup_page_1
+      name: tile_bookcrate_active_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 48
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,41 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d2640b99295bdb980800000000000000
-      internalID: -8521455278666791379
+      spriteID: cd55dac68358b0f30800000000000000
+      internalID: 4542871126521239004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pickup_page_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 69a31af22febbaf80800000000000000
-      internalID: -8094165957877876074
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pickup_page_3
+      name: tile_bookcrate_active_2
       rect:
         serializedVersion: 2
         x: 96
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ccb3f010c08db5f0800000000000000
-      internalID: -739293201412408128
+      spriteID: 97b4c5a45880f4890800000000000000
+      internalID: -7471743888213128327
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pickup_page_4
+      name: tile_bookcrate_active_3
       rect:
         serializedVersion: 2
-        x: 128
+        x: 144
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,41 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1416e1ecb5a403e0800000000000000
-      internalID: -2088362096530680801
+      spriteID: 84ecd9bb214dfa7f0800000000000000
+      internalID: -599027048494805432
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pickup_page_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 572067557d21aa530800000000000000
-      internalID: 3866923946112057973
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pickup_page_6
+      name: tile_bookcrate_active_4
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7788b46bb3856a850800000000000000
-      internalID: 6387890134956345463
+      spriteID: b70b8ce29a6008940800000000000000
+      internalID: 5296240485491847291
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pickup_page_7
+      name: tile_bookcrate_active_5
       rect:
         serializedVersion: 2
-        x: 224
+        x: 240
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,8 +258,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5dd6e346e253b8db0800000000000000
-      internalID: -4788675305411809835
+      spriteID: 577abc8e890b3f230800000000000000
+      internalID: 3671472292024264565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile_bookcrate_active_6
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fe49cee2d7295f30800000000000000
+      internalID: 4564723484219494137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile_bookcrate_active_7
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a6954ae038e71e10800000000000000
+      internalID: 2168457042388686497
       vertices: []
       indices: 
       edges: []
