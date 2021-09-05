@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerInventory inventory;
 
+    [SerializeField] private LevelData startLevel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,11 +71,8 @@ public class PlayerController : MonoBehaviour
         rbody = gameObject.GetComponent<Rigidbody2D>();
         originalXScale = transform.localScale.x;
 
-        inventory.Add(Item.Platform, 5);
-
-        int[] inv = {0, 0, 0, 50, 4, 50, 50, 1, 1, 1};
-        inventory.AddLevelInventory(inv);
-        inventory.FillLevelInventory();
+        startLevel.SetPlayer(gameObject);
+        startLevel.FirstTimeSetup();
 
         gravity = rbody.gravityScale;
         drag = rbody.drag;
