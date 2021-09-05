@@ -65,7 +65,7 @@ public class PlayerInput : MonoBehaviour
 		attackPressed   = false;
 		bookBombPressed = false;
         summonPressed   = false;
-
+		dashPressed 	= false;
 		readyToClear	= false;
 	}
 
