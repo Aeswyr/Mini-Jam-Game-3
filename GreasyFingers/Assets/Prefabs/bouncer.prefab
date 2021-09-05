@@ -101,6 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontal: 0
   direction: -1
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 32768
   rbody: {fileID: 0}
   groundLayer:
     serializedVersion: 2

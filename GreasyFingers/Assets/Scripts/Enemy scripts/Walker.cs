@@ -16,7 +16,7 @@ public class Walker : MonoBehaviour
 
     private float footOffset = 0.5f;
     private float wallOffset = 0.5f;
-    private float midHeight = 0.3f;
+    private float midHeight = 0.5f;
     private float groundCheck = 0.1f;
     private float wallCheck = 0.2f;
 
@@ -42,8 +42,7 @@ public class Walker : MonoBehaviour
 
     void die() {
         // TODO: Run death animation
-        Debug.Log("die");
-        alive = false;
+        Object.Destroy(this.gameObject);
     }
 
     // Update is called once per frame
@@ -53,10 +52,10 @@ public class Walker : MonoBehaviour
     }
 
     void Move() {
-        RaycastHit2D frontfoot = Raycast(new Vector2(footOffset * direction, 0f), Vector2.down, groundCheck);
-        RaycastHit2D backfoot = Raycast(new Vector2(footOffset * -direction, 0f), Vector2.down, groundCheck);
+        RaycastHit2D frontfoot = Raycast(new Vector2(footOffset * direction, -midHeight), Vector2.down, groundCheck);
+        RaycastHit2D backfoot = Raycast(new Vector2(footOffset * -direction, -midHeight), Vector2.down, groundCheck);
 
-        RaycastHit2D wall  = Raycast(new Vector2(wallOffset * direction, midHeight), Vector2.right * direction, wallCheck);
+        RaycastHit2D wall  = Raycast(new Vector2(wallOffset * direction, 0f), Vector2.right * direction, wallCheck);
 
         if ((backfoot && !frontfoot) || wall) {
             turnAround();

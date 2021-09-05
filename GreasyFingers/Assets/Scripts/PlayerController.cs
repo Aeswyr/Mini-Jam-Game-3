@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask enemyLayer;
     public LayerMask proximityLayer;
+    public LayerMask crateLayer;
 
     public GameObject activeCrate;
     public GameObject fallingBookPrefab;
@@ -241,6 +242,12 @@ public class PlayerController : MonoBehaviour
             StartDash();
         }
 
+/*
+        if (input.crystalDashPressed && checkDash()) {
+            StartCrystalDash();
+        }
+        */
+
         if (input.attackPressed && inventory.Remove(Item.Reaper)) {
             Vector3 pos = new Vector3(transform.position.x + (direction * 1f), transform.position.y, transform.position.z);
             GameObject atk = Instantiate(attackPrefab, pos, Quaternion.identity);
@@ -299,8 +306,9 @@ public class PlayerController : MonoBehaviour
 
     private bool isDashing() {
         if (dashing) {
-            RaycastHit2D dashCheck  = Raycast(new Vector2(0, 0), rbody.velocity / rbody.velocity.sqrMagnitude, 1.1f);
-            return lastDash + dashCooldown > Time.time && !dashCheck;
+            RaycastHit2D dashCheckTop  = Raycast(new Vector2(0, -.6f), rbody.velocity / rbody.velocity.sqrMagnitude, 1.1f);
+            RaycastHit2D dashCheckBot  = Raycast(new Vector2(0, .6f), rbody.velocity / rbody.velocity.sqrMagnitude, 1.1f);
+            return lastDash + dashCooldown > Time.time && !dashCheckTop && !dashCheckBot;
         }
         return false;
     }
@@ -308,6 +316,60 @@ public class PlayerController : MonoBehaviour
     private void ApplyDash() {
         rbody.velocity = dashVelocity;
     }
+
+/*
+    bool crystalDashing = false;
+    private bool checkCrystalDash() {
+        RaycastHit2D leftCheck  = Raycast(new Vector2(- footOffset, vFootOffset), Vector2.down, groundCheck, crateLayer);
+        RaycastHit2D rightCheck = Raycast(new Vector2(  footOffset, vFootOffset), Vector2.down, groundCheck, crateLayer);
+
+        if (leftCheck || rightCheck) {
+            Vector2 d = new Vector2(direction, 0f);
+            RaycastHit2D dashCheck  = Raycast(new Vector2(0, 0), d, 1.1f);
+            return !dashCheck && inventory.Remove(Item.CrystalDash);
+        }
+        return false;
+    }
+
+    private void StartCrystalDash() {
+        float deadzone = 0.2f;
+        int h = direction
+        int v = 0
+        dashVelocity = dashSpeed * new Vector2(h, v);
+        //AnimateDash();
+
+        rbody.isKinematic = true;
+        rbody.velocity = Vector2.zero;
+        rbody.gravityScale = 0;
+        rbody.drag = 0;
+        
+        dashing = true;
+        ApplyCrystalDash();
+    }
+
+    private void EndCrystalDash() {
+        crystalDashing = false;
+        rbody.isKinematic = false;
+        rbody.gravityScale = gravity;
+        rbody.drag = drag;
+        rbody.velocity = Vector2.zero;
+    }
+
+    private bool isCrystalDashing() {
+        if (crystalDashing) {
+            RaycastHit2D dashCheck  = Raycast(new Vector2(0, -.6f), rbody.velocity / rbody.velocity.sqrMagnitude, 1.1f);
+            RaycastHit2D dashCheck  = Raycast(new Vector2(0, .6f), rbody.velocity / rbody.velocity.sqrMagnitude, 1.1f);
+            if (jumpPressed || input.horizontal)
+            return lastDash + dashCooldown > Time.time && !dashCheck;
+        }
+        return false;
+    }
+
+    private void ApplyCrystalDash() {
+        rbody.velocity = dashVelocity;
+    }
+
+    */
 
     /** 
         returns true if movement is unlocked, false otherwise

@@ -12,6 +12,8 @@ public class Bouncer : MonoBehaviour
 
     private bool turning = false;
 
+    public LayerMask attackLayer;
+
     [SerializeField] private Rigidbody2D rbody;
     public LayerMask groundLayer;
 
@@ -45,6 +47,10 @@ public class Bouncer : MonoBehaviour
 		    direction *= -1;
             turning = true;
         }
+
+        if (attackLayer == (attackLayer | (1 << cLayer))) {
+            die();
+        }
         /* flipping code, can uncomment if needed.
 		//Record the current scale
 		Vector3 scale = transform.localScale;
@@ -55,6 +61,11 @@ public class Bouncer : MonoBehaviour
 		//Apply the new scale
 		transform.localScale = scale;
         */
+    }
+
+    void die() {
+        // TODO: Run death animation
+        Object.Destroy(this.gameObject);
     }
 
     void OnTriggerExit2D() {
