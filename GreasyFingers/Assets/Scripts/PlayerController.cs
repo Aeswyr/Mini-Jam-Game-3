@@ -63,6 +63,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerInventory inventory;
 
+    public LevelData currentLevel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,11 +72,8 @@ public class PlayerController : MonoBehaviour
         rbody = gameObject.GetComponent<Rigidbody2D>();
         originalXScale = transform.localScale.x;
 
-        inventory.Add(Item.Platform, 5);
-
-        int[] inv = {0, 0, 0, 50, 4, 50, 50, 1, 1, 1};
-        inventory.AddLevelInventory(inv);
-        inventory.FillLevelInventory();
+        currentLevel.SetPlayer(gameObject);
+        currentLevel.FirstTimeSetup();
 
         gravity = rbody.gravityScale;
         drag = rbody.drag;
@@ -107,6 +106,16 @@ public class PlayerController : MonoBehaviour
 
         rbody.bodyType = RigidbodyType2D.Static;
         dying = false;
+
+        if (inventory.Remove(Item.Life)){
+            StartCoroutine(ResetLevel());
+        }
+    }
+
+    private IEnumerator ResetLevel()
+    {
+        yield return new WaitForSeconds(3);
+        OnRevive(); 
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -216,6 +225,8 @@ public class PlayerController : MonoBehaviour
     private void OnRevive() {
         alive = true;
         animator.Play("Base Layer.player_idle");
+        rbody.bodyType = RigidbodyType2D.Dynamic;
+        currentLevel.Setup();
     }
     	
     void FlipCharacterDirection() {

@@ -11,6 +11,7 @@ public class LevelData : MonoBehaviour
 
     public void FirstTimeSetup() {
         inventory.GetLevelRewards();
+        player.currentLevel = this;
         Setup();
     }
 
