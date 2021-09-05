@@ -12,6 +12,7 @@ public class Walker : MonoBehaviour
     private int direction = 1;
     private float originalXScale;
     
+    private bool alive = true;
 
     private float footOffset = 0.5f;
     private float wallOffset = 0.5f;
@@ -19,6 +20,7 @@ public class Walker : MonoBehaviour
     private float groundCheck = 0.1f;
     private float wallCheck = 0.2f;
 
+    public LayerMask attackLayer;
 
     [SerializeField] private Rigidbody2D rbody;
     public LayerMask groundLayer;
@@ -28,6 +30,20 @@ public class Walker : MonoBehaviour
     {
         originalXScale = transform.localScale.x;
         rbody = gameObject.GetComponent<Rigidbody2D>();
+    }
+
+    void OnTriggerEnter2D(Collider2D collision) {
+        int cLayer = collision.gameObject.layer;
+
+        if (alive && attackLayer == (attackLayer | (1 << cLayer))) {
+            die();
+        }
+    }
+
+    void die() {
+        // TODO: Run death animation
+        Debug.Log("die");
+        alive = false;
     }
 
     // Update is called once per frame

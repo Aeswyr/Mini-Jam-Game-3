@@ -168,6 +168,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   activeCrate: {fileID: 0}
+  fallingBookPrefab: {fileID: 2763050505711008287, guid: e72f04eb021be98499cdbd5a646996c9, type: 3}
+  attackPrefab: {fileID: 8293730637336548215, guid: cdfad2625e7c52943aaf43266707b018, type: 3}
   rbody: {fileID: 2662364265666504691}
   animator: {fileID: 4161439269584631296}
   inventory: {fileID: 3630792277495778753}
@@ -184,11 +186,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontal: 0
+  vertical: 0
   jumpHeld: 0
   jumpPressed: 0
   crouchHeld: 0
   crouchPressed: 0
   summonPressed: 0
+  dashPressed: 0
+  attackPressed: 0
 --- !u!114 &5567413434196029276
 MonoBehaviour:
   m_ObjectHideFlags: 0

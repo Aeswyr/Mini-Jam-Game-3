@@ -38,12 +38,24 @@ public class PlayerController : MonoBehaviour
     private float coyoteTime;
     private float coyoteDuration;
 
+    private float dashSpeed = 40f;
+    private Vector2 dashVelocity;
+    private float lastDash = 0f;
+    private float dashCooldown = 0.3f;
+    private float dashStartup = 0.1f;
+    private readonly float RAD45 = Mathf.Sqrt(2) / 2;
+    
+    private float gravity;
+    private float drag;
+
     private PlayerInput input;
     public LayerMask groundLayer;
     public LayerMask enemyLayer;
     public LayerMask proximityLayer;
 
     public GameObject activeCrate;
+    public GameObject fallingBookPrefab;
+    public GameObject attackPrefab;
 
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private Animator animator;
@@ -58,9 +70,12 @@ public class PlayerController : MonoBehaviour
 
         inventory.Add(Item.Platform, 5);
 
-        int[] inv = {0, 0, 0, 5, 4, 0, 0, 1, 1, 1};
+        int[] inv = {0, 0, 0, 50, 4, 0, 0, 1, 1, 1};
         inventory.AddLevelInventory(inv);
         inventory.FillLevelInventory();
+
+        gravity = rbody.gravityScale;
+        drag = rbody.drag;
     }
 
     // Update is called once per frame
@@ -70,8 +85,17 @@ public class PlayerController : MonoBehaviour
         if (alive) {
             PhysicsCheck();
 
-            GroundMovement();
-            midAirMovement();
+            if (MovementLockout()) {
+                GroundMovement();
+                midAirMovement();
+            }
+
+            
+            if (dashing && !isDashing())
+                EndDash();
+
+            if (isDashing())
+                ApplyDash();
 
             handleAbilities();
         } else if (dying) {
@@ -169,6 +193,10 @@ public class PlayerController : MonoBehaviour
             rbody.velocity = new Vector2(rbody.velocity.x, 0);
             rbody.AddForce(new Vector2(0f, doubleJumpForce), ForceMode2D.Impulse);
             usedDoubleJump = true;
+
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+            Instantiate(fallingBookPrefab, pos, Quaternion.identity);
+
             OnJump();
         }
     }
@@ -207,10 +235,69 @@ public class PlayerController : MonoBehaviour
 	}
 
     void handleAbilities() {
-        if (input.summonPressed && activeCrate != null && !activeCrate.Equals(null)) {
+        if (input.summonPressed && activeCrate != null && !activeCrate.Equals(null) && inventory.Remove(Item.Platform)) {
             //gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
             activeCrate.transform.parent.gameObject.GetComponent<CrateControls>().SummonBookstack();
         }
+
+        if (input.dashPressed && checkDash()) {
+            StartDash();
+        }
+
+        if (input.attackPressed && inventory.Remove(Item.Reaper)) {
+            Vector3 pos = new Vector3(transform.position.x + (direction * 1f), transform.position.y, transform.position.z);
+            GameObject atk = Instantiate(attackPrefab, pos, Quaternion.identity);
+            //atk.transform.parent = rbody.transform;
+        }
+    }
+
+
+    bool dashing = false;
+    private bool checkDash() {
+        return Time.time > lastDash + dashCooldown && (input.horizontal != 0 || input.vertical != 0) && inventory.Remove(Item.Dash);
+    }
+
+    private void StartDash() {
+        dashVelocity = dashSpeed * new Vector2(input.horizontal, input.vertical);
+        if (input.horizontal != 0 && input.vertical != 0)
+            dashVelocity *= RAD45;
+
+        //AnimateDash();
+
+        lastDash = Time.time;
+
+        rbody.isKinematic = true;
+        rbody.velocity = Vector2.zero;
+        rbody.gravityScale = 0;
+        rbody.drag = 0;
+        rbody.isKinematic = false;
+
+        dashing = true;
+    }
+
+    private void EndDash() {
+        dashing = false;
+        rbody.gravityScale = gravity;
+        rbody.drag = drag;
+        rbody.velocity = Vector2.zero;
+    }
+
+    private bool isDashing() {
+        return lastDash + dashCooldown > Time.time;
+    }
+
+    private void ApplyDash() {
+        if (lastDash + dashStartup > Time.time)
+            rbody.velocity = Vector2.zero;
+        else
+            rbody.velocity = dashVelocity;
+    }
+
+    /** 
+        returns true if movement is unlocked, false otherwise
+    */
+    private bool MovementLockout() {
+        return Time.time > lastDash + dashCooldown;
     }
 
     RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length) {
