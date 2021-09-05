@@ -10,11 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-<<<<<<< HEAD
-  m_Name: tileset_stone 1
-=======
-  m_Name: tileset_stone
->>>>>>> b2ea0cb48b718e9c671d32ff86dbcba0988dfc32
+  m_Name: tileset_wood
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 4987697875940155546, guid: 38b176e53f765ba458c0bfe63b00517f, type: 3}
   m_DefaultGameObject: {fileID: 0}
