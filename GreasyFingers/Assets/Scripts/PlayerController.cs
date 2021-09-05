@@ -257,7 +257,13 @@ public class PlayerController : MonoBehaviour
 
     bool dashing = false;
     private bool checkDash() {
-        return Time.time > lastDash + dashCooldown && (input.horizontal != 0 || input.vertical != 0) && inventory.Remove(Item.Dash);
+        if (input.horizontal != 0 || input.vertical != 0) {
+            Vector2 d = new Vector2(input.horizontal, input.vertical);
+            d.Normalize();
+            RaycastHit2D dashCheck  = Raycast(new Vector2(0, 0), d, 1.1f);
+            return Time.time > lastDash + dashCooldown && !dashCheck && inventory.Remove(Item.Dash);
+        }
+        return false;
     }
 
     private void StartDash() {
@@ -292,7 +298,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool isDashing() {
-        return lastDash + dashCooldown > Time.time;
+        if (dashing) {
+            RaycastHit2D dashCheck  = Raycast(new Vector2(0, 0), rbody.velocity / rbody.velocity.sqrMagnitude, 1.1f);
+            return lastDash + dashCooldown > Time.time && !dashCheck;
+        }
+        return false;
     }
 
     private void ApplyDash() {
