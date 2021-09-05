@@ -171,7 +171,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.7481482, y: 1}
+    m_SensorSize: {x: 1.9214437, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -713,7 +713,7 @@ CompositeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2334,6 +2334,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2662364265666504688, guid: d2a695076bc975241a58aef575efa573, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 320
+      objectReference: {fileID: 0}
     - target: {fileID: 2662364265666504689, guid: d2a695076bc975241a58aef575efa573, type: 3}
       propertyPath: m_Name
       value: player
