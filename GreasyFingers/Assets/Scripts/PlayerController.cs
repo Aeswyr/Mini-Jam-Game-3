@@ -38,6 +38,12 @@ public class PlayerController : MonoBehaviour
     private float coyoteTime;
     private float coyoteDuration;
 
+    private float dashSpeed = 30f;
+    private Vector2 dashVelocity;
+    private float lastDash = 0f;
+    private float dashCooldown = 3f;
+    private readonly float RAD45 = Mathf.Sqrt(2) / 2;
+
     private PlayerInput input;
     public LayerMask groundLayer;
     public LayerMask enemyLayer;
@@ -207,10 +213,30 @@ public class PlayerController : MonoBehaviour
 	}
 
     void handleAbilities() {
-        if (input.summonPressed && activeCrate != null && !activeCrate.Equals(null)) {
+        if (input.summonPressed && activeCrate != null && !activeCrate.Equals(null) && inventory.Remove(Item.Platform)) {
             //gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
             activeCrate.transform.parent.gameObject.GetComponent<CrateControls>().SummonBookstack();
         }
+
+        if (input.dashPressed && checkDash()) {
+            ApplyDash();
+        }
+    }
+
+    private bool checkDash() {
+        return Time.time > lastDash + dashCooldown && (input.horizontal != 0 || input.vertical != 0) && inventory.Remove(Item.Dash);
+    }
+
+    private void ApplyDash() {
+        dashVelocity = dashSpeed * new Vector2(input.horizontal, input.vertical);
+
+        if (input.horizontal != 0 && input.vertical != 0)
+            dashVelocity *= RAD45;
+
+        //AnimateDash();
+
+        lastDash = Time.time;
+        rbody.velocity = dashVelocity;
     }
 
     RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length) {
