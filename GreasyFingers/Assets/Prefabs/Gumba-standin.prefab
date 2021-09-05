@@ -139,6 +139,9 @@ MonoBehaviour:
   drawDebugRaycasts: 0
   speed: 4
   maxAccel: 0.2
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 32768
   rbody: {fileID: 3617247358227604698}
   groundLayer:
     serializedVersion: 2

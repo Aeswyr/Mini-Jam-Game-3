@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask proximityLayer;
 
     public GameObject activeCrate;
+    public GameObject fallingBookPrefab;
 
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private Animator animator;
@@ -175,6 +176,10 @@ public class PlayerController : MonoBehaviour
             rbody.velocity = new Vector2(rbody.velocity.x, 0);
             rbody.AddForce(new Vector2(0f, doubleJumpForce), ForceMode2D.Impulse);
             usedDoubleJump = true;
+
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+            Instantiate(fallingBookPrefab, pos, Quaternion.identity);
+
             OnJump();
         }
     }
