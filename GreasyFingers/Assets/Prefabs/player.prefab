@@ -154,6 +154,7 @@ MonoBehaviour:
   jumpHoldDuration: 0.3
   jumpForce: 8
   jumpHoldForce: 0.4
+  doubleJumpForce: 12
   alive: 1
   dying: 0
   groundLayer:
