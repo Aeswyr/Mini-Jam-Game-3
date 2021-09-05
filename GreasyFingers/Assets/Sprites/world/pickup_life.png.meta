@@ -1,22 +1,31 @@
 fileFormatVersion: 2
-guid: 1f4c79c8b805e754f8bb1f59e159cbf8
+guid: 928b30e73fe5a594f8511faf9552dbac
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4330694004763997605
-    second: player_jump_0
+      213: 4368102010332549086
+    second: pickup_life_0
   - first:
-      213: -9012280687236740709
-    second: player_jump_1
+      213: -23025221600393477
+    second: pickup_life_1
   - first:
-      213: 3706479157532092022
-    second: player_jump_2
+      213: 860315824638029687
+    second: pickup_life_2
   - first:
-      213: 6651360496480428754
-    second: player_jump_3
+      213: 1575465475224155821
+    second: pickup_life_3
   - first:
-      213: 4107919912467758190
-    second: player_jump_4
+      213: 2862411259419981077
+    second: pickup_life_4
+  - first:
+      213: 3000984179443905867
+    second: pickup_life_5
+  - first:
+      213: 7821365701101192842
+    second: pickup_life_6
+  - first:
+      213: -1530547643424189818
+    second: pickup_life_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -130,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_jump_0
+      name: pickup_life_0
       rect:
         serializedVersion: 2
         x: 0
@@ -144,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a53fd89047b91c30800000000000000
-      internalID: 4330694004763997605
+      spriteID: edf8a8c92ad9e9c30800000000000000
+      internalID: 4368102010332549086
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_jump_1
+      name: pickup_life_1
       rect:
         serializedVersion: 2
         x: 32
@@ -165,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b99042dc672fde280800000000000000
-      internalID: -9012280687236740709
+      spriteID: bf642a5dea23eaff0800000000000000
+      internalID: -23025221600393477
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_jump_2
+      name: pickup_life_2
       rect:
         serializedVersion: 2
         x: 64
@@ -186,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 676e610f72f007330800000000000000
-      internalID: 3706479157532092022
+      spriteID: 77f62323fa470fb00800000000000000
+      internalID: 860315824638029687
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_jump_3
+      name: pickup_life_3
       rect:
         serializedVersion: 2
         x: 96
@@ -207,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d228c191216e4c50800000000000000
-      internalID: 6651360496480428754
+      spriteID: da6b0a6a08d2dd510800000000000000
+      internalID: 1575465475224155821
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_jump_4
+      name: pickup_life_4
       rect:
         serializedVersion: 2
         x: 128
@@ -228,8 +237,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6cf46c4563420930800000000000000
-      internalID: 4107919912467758190
+      spriteID: 5157eceefd359b720800000000000000
+      internalID: 2862411259419981077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pickup_life_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4532581633a5a920800000000000000
+      internalID: 3000984179443905867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pickup_life_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a868f807aa21b8c60800000000000000
+      internalID: 7821365701101192842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pickup_life_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 682d3e9070762cae0800000000000000
+      internalID: -1530547643424189818
       vertices: []
       indices: 
       edges: []
