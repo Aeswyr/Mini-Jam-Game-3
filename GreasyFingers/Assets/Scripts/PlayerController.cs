@@ -325,7 +325,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ApplyDash() {
-        rbody.velocity = dashVelocity;
+        if (Time.time > lastDash + dashStartup)
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        else
+            GetComponent<Rigidbody2D>().velocity = dashVelocity;
     }
 
 /*
