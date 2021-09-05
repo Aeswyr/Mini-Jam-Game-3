@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     public float jumpHoldDuration;	//How long the jump key can be held
     public float jumpForce;           //Initial jump force
 	public float jumpHoldForce;		//Incremental force when jump is held
+
+    public float doubleJumpForce;
+    private bool usedDoubleJump = false;
     
     private float originalXScale;
 
@@ -103,8 +106,10 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D rightCheck = Raycast(new Vector2(  footOffset, vFootOffset), Vector2.down, groundCheck);
 
         if (leftCheck || rightCheck) {
-            if (!onGround)
+            if (!onGround) {
+                usedDoubleJump = false;
                 OnLand();
+            }
             SetGrounded(true);
         } else {
             SetGrounded(false);
@@ -151,7 +156,12 @@ public class PlayerController : MonoBehaviour
 			//...and if jump time is past, set isJumping to false
 			if (jumpTime <= Time.time)
 				isJumping = false;
-		}
+		} else if (input.jumpPressed && !isJumping && !usedDoubleJump) {
+            rbody.velocity = new Vector2(rbody.velocity.x, 0);
+            rbody.AddForce(new Vector2(0f, doubleJumpForce), ForceMode2D.Impulse);
+            usedDoubleJump = true;
+            OnJump();
+        }
     }
 
     private void OnJump() {
