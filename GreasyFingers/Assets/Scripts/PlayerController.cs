@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     public float jumpHoldDuration;	//How long the jump key can be held
     public float jumpForce;           //Initial jump force
 	public float jumpHoldForce;		//Incremental force when jump is held
+
+    public float doubleJumpForce;
+    private bool usedDoubleJump = false;
     
     private float originalXScale;
 
@@ -36,10 +39,11 @@ public class PlayerController : MonoBehaviour
     private float coyoteDuration;
 
     private PlayerInput input;
-    private GameManager gm;
     public LayerMask groundLayer;
     public LayerMask enemyLayer;
-    public LayerMask hazardLayer;
+    public LayerMask proximityLayer;
+
+    public GameObject activeCrate;
 
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private Animator animator;
@@ -49,7 +53,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         input = GetComponent<PlayerInput>();
-        gm = GetComponent<GameManager>();
         rbody = gameObject.GetComponent<Rigidbody2D>();
         originalXScale = transform.localScale.x;
 
@@ -91,6 +94,18 @@ public class PlayerController : MonoBehaviour
             alive = false;
             dying = true;
         }
+
+        if (proximityLayer == (proximityLayer | (1 << cLayer))) {
+            activeCrate = collision.gameObject;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision) {
+        int cLayer = collision.gameObject.layer;
+
+        if (proximityLayer == (proximityLayer | (1 << cLayer)) && collision.gameObject == activeCrate) {
+            activeCrate = null;
+        }
     }
 
     void PhysicsCheck() {
@@ -98,8 +113,10 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D rightCheck = Raycast(new Vector2(  footOffset, vFootOffset), Vector2.down, groundCheck);
 
         if (leftCheck || rightCheck) {
-            if (!onGround)
+            if (!onGround) {
+                usedDoubleJump = false;
                 OnLand();
+            }
             SetGrounded(true);
         } else {
             SetGrounded(false);
@@ -146,7 +163,12 @@ public class PlayerController : MonoBehaviour
 			//...and if jump time is past, set isJumping to false
 			if (jumpTime <= Time.time)
 				isJumping = false;
-		}
+		} else if (input.jumpPressed && !isJumping && !usedDoubleJump) {
+            rbody.velocity = new Vector2(rbody.velocity.x, 0);
+            rbody.AddForce(new Vector2(0f, doubleJumpForce), ForceMode2D.Impulse);
+            usedDoubleJump = true;
+            OnJump();
+        }
     }
 
     private void OnJump() {
@@ -183,8 +205,9 @@ public class PlayerController : MonoBehaviour
 	}
 
     void handleAbilities() {
-        if (input.summonPressed && inventory.Remove(Item.Platform)) {
-            gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
+        if (input.summonPressed && activeCrate != null && !activeCrate.Equals(null)) {
+            //gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
+            activeCrate.transform.parent.gameObject.GetComponent<CrateControls>().SummonBookstack();
         }
     }
 
