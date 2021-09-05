@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: New Rule Tile
+  m_Name: tileset_test
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 21300000, guid: b9bd1a50cd4c69340b9a0d0b3a2f39ce, type: 3}
   m_DefaultGameObject: {fileID: 0}
