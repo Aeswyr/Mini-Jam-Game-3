@@ -14,7 +14,7 @@ public class Walker : MonoBehaviour
     
 
     private float footOffset = 0.5f;
-    private float wallOffset = 0.4f;
+    private float wallOffset = 0.5f;
     private float midHeight = 0.3f;
     private float groundCheck = 0.1f;
     private float wallCheck = 0.2f;
