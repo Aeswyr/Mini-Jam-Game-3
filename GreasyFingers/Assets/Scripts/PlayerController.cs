@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
         OnDeath();
 
         rbody.bodyType = RigidbodyType2D.Static;
+        dying = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
