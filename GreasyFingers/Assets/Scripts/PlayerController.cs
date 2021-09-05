@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public bool onGround = true;
     private int direction = 1;
+    private bool alive = true;
     
     bool isJumping;
     float jumpTime;							//Variable to hold jump duration
@@ -55,10 +56,12 @@ public class PlayerController : MonoBehaviour
 
         PhysicsCheck();
 
-        GroundMovement();
-        midAirMovement();
+        if (alive)  {
+            GroundMovement();
+            midAirMovement();
 
-        handleAttacks();
+            handleAttacks();
+        }
         //if (Input.GetAxis("Vertical") != 0) {
         //        momentum.y = speed * Input.GetAxis("Vertical");
         //        rbody.velocity = momentum;
@@ -128,6 +131,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnLand() {
         animator.SetTrigger("Landed");
+    }
+
+    private void OnDeath() {
+        animator.SetTrigger("Died");
+        alive = false;
+    }
+
+    private void OnRevive() {
+        alive = true;
+        animator.Play("Base Layer.player_idle");
     }
     	
     void FlipCharacterDirection() {
