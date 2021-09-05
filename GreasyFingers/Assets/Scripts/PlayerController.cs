@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private float coyoteTime;
     private float coyoteDuration;
 
-    private float dashSpeed = 40f;
+    private float dashSpeed = 20f;
     private Vector2 dashVelocity;
     private float lastDash = 0f;
     private float dashCooldown = 0.3f;
@@ -86,19 +86,15 @@ public class PlayerController : MonoBehaviour
         if (alive) {
             PhysicsCheck();
 
-            if (MovementLockout()) {
+            if (!isDashing()) {
+                if (dashing)
+                    EndDash();
+
                 GroundMovement();
                 midAirMovement();
+                
+                handleAbilities();
             }
-
-            
-            if (dashing && !isDashing())
-                EndDash();
-
-            if (isDashing())
-                ApplyDash();
-
-            handleAbilities();
         } else if (dying) {
             playerDeath();
         }
@@ -265,7 +261,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private void StartDash() {
-        dashVelocity = dashSpeed * new Vector2(input.horizontal, input.vertical);
+        float deadzone = 0.2f;
+        int h = input.horizontal > deadzone ? 1 : input.horizontal < - deadzone ? -1 : 0;
+        int v = input.vertical > deadzone ? 1 : input.vertical < - deadzone ? -1 : 0;
+        dashVelocity = dashSpeed * new Vector2(h, v);
+
         if (input.horizontal != 0 && input.vertical != 0)
             dashVelocity *= RAD45;
 
@@ -277,13 +277,15 @@ public class PlayerController : MonoBehaviour
         rbody.velocity = Vector2.zero;
         rbody.gravityScale = 0;
         rbody.drag = 0;
-        rbody.isKinematic = false;
+        
 
         dashing = true;
+        ApplyDash();
     }
 
     private void EndDash() {
         dashing = false;
+        rbody.isKinematic = false;
         rbody.gravityScale = gravity;
         rbody.drag = drag;
         rbody.velocity = Vector2.zero;
@@ -294,10 +296,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ApplyDash() {
-        if (lastDash + dashStartup > Time.time)
-            rbody.velocity = Vector2.zero;
-        else
-            rbody.velocity = dashVelocity;
+        rbody.velocity = dashVelocity;
     }
 
     /** 
