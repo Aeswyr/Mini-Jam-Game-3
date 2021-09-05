@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject activeCrate;
     public GameObject fallingBookPrefab;
+    public GameObject attackPrefab;
 
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private Animator animator;
@@ -225,6 +226,12 @@ public class PlayerController : MonoBehaviour
 
         if (input.dashPressed && checkDash()) {
             ApplyDash();
+        }
+
+        if (input.attackPressed && inventory.Remove(Item.Reaper)) {
+            Vector3 pos = new Vector3(transform.position.x + (direction * 1f), transform.position.y, transform.position.z);
+            GameObject atk = Instantiate(attackPrefab, pos, Quaternion.identity);
+            //atk.transform.parent = rbody.transform;
         }
     }
 

@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
 
     [HideInInspector] public bool summonPressed;
     [HideInInspector] public bool dashPressed;
+    [HideInInspector] public bool attackPressed;
 
 	bool readyToClear;								//Bool used to keep input in sync
 
@@ -60,6 +61,7 @@ public class PlayerInput : MonoBehaviour
 		jumpHeld		= false;
 		crouchPressed	= false;
 		crouchHeld		= false;
+		attackPressed   = false;
         summonPressed   = false;
 
 		readyToClear	= false;
@@ -76,5 +78,6 @@ public class PlayerInput : MonoBehaviour
 		jumpHeld		= jumpHeld || Input.GetButton("Jump");
         summonPressed   = summonPressed || Input.GetButtonDown("Summon");
         dashPressed		= dashPressed || Input.GetButtonDown("Dash");
+        attackPressed	= attackPressed || Input.GetButtonDown("Attack");
 	}
 }
