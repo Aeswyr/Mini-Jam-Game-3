@@ -63,7 +63,7 @@ public class PlayerInput : MonoBehaviour
 		crouchHeld		= false;
 		attackPressed   = false;
         summonPressed   = false;
-
+		dashPressed 	= false;
 		readyToClear	= false;
 	}
 
