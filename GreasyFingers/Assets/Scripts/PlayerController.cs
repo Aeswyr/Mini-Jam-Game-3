@@ -36,10 +36,11 @@ public class PlayerController : MonoBehaviour
     private float coyoteDuration;
 
     private PlayerInput input;
-    private GameManager gm;
     public LayerMask groundLayer;
     public LayerMask enemyLayer;
-    public LayerMask hazardLayer;
+    public LayerMask proximityLayer;
+
+    public GameObject activeCrate;
 
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private Animator animator;
@@ -48,7 +49,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         input = GetComponent<PlayerInput>();
-        gm = GetComponent<GameManager>();
         rbody = gameObject.GetComponent<Rigidbody2D>();
         originalXScale = transform.localScale.x;
     }
@@ -83,6 +83,18 @@ public class PlayerController : MonoBehaviour
         if (alive && enemyLayer == (enemyLayer | (1 << cLayer))) {
             alive = false;
             dying = true;
+        }
+
+        if (proximityLayer == (proximityLayer | (1 << cLayer))) {
+            activeCrate = collision.gameObject;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision) {
+        int cLayer = collision.gameObject.layer;
+
+        if (proximityLayer == (proximityLayer | (1 << cLayer)) && collision.gameObject == activeCrate) {
+            activeCrate = null;
         }
     }
 
@@ -176,8 +188,9 @@ public class PlayerController : MonoBehaviour
 	}
 
     void handleAbilities() {
-        if (input.summonPressed) {
-            gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
+        if (input.summonPressed && activeCrate != null && !activeCrate.Equals(null)) {
+            //gm.addSummon(new Vector3(transform.position.x + direction * summonDist, transform.position.y, transform.position.z));
+            activeCrate.transform.parent.gameObject.GetComponent<CrateControls>().SummonBookstack();
         }
     }
 

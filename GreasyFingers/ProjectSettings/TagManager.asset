@@ -17,9 +17,9 @@ TagManager:
   - Platforms
   - Player
   - Camera
-  - 
-  - 
-  - 
+  - Activatable
+  - Crates
+  - Proximity
   - 
   - 
   - 
@@ -41,9 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Summons
+    uniqueID: 2628222429
+    locked: 0
   - name: Platforms
     uniqueID: 1994474773
     locked: 0
   - name: Hazards
     uniqueID: 3689951675
+    locked: 0
+  - name: Crates
+    uniqueID: 2386863515
     locked: 0

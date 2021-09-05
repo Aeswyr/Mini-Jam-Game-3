@@ -158,13 +158,14 @@ MonoBehaviour:
   dying: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 8832
   enemyLayer:
     serializedVersion: 2
     m_Bits: 320
-  hazardLayer:
+  proximityLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
+  activeCrate: {fileID: 0}
   rbody: {fileID: 2662364265666504691}
   animator: {fileID: 4161439269584631296}
 --- !u!114 &2662364265666504703
