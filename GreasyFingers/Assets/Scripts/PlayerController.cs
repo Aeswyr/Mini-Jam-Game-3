@@ -71,7 +71,11 @@ public class PlayerController : MonoBehaviour
 
         inventory.Add(Item.Platform, 5);
 
+<<<<<<< HEAD
         int[] inv = {0, 0, 0, 50, 4, 50, 50, 1, 1, 1};
+=======
+        int[] inv = {0, 0, 0, 50, 4, 0, 0, 1, 50, 1};
+>>>>>>> main
         inventory.AddLevelInventory(inv);
         inventory.FillLevelInventory();
 
